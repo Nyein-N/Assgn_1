@@ -1,0 +1,62 @@
+---
+title: "R10627036_assn_1"
+author: "Nyein Ei Cho"
+date: "10/18/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Importing a .txt file
+
+```{rairuoho}
+>rairuoho<-read.table('C:/Users/DELL/Downloads/wd.R/rairuoho.txt', header=T, sep='\t', dec='.') 
+>rairuoho
+```
+
+## Replacing an existing column
+```{rairuoho$treatment}
+> rairuoho$treatment<-ifelse(rairuoho$treatment=='nutrient', 'enriched','water')
+> rairuoho$treatment
+```
+
+
+## Rechecking the structure again
+```{rairuoho}
+>str(rairuoho)
+
+```
+## Reformatting day variables into 6 levels and creating new variable named length 
+
+```{tidyr}
+> library (tidyr)
+> rairuoho_long <- rairuoho %>% pivot_longer(day.3:day.8, names_to = "day", values_to = "length")
+> rairuoho_long
+```
+
+## Merge two variables
+```{rairuoho_long_merged}
+> rairuoho_long_merged<-unite(rairuoho_long,spatial_merged,c("spatial1","spatial2"),sep="_",remove=TRUE,na.rm= FALSE)
+> rairuoho_long_merged
+
+```
+
+
+## Remove two columns
+
+
+```{dplyr}
+> library(dplyr)
+> select(rairuoho,-c("row","column"))
+> select(rairuoho_long_merged,-c("row","column"))
+```
+
+
